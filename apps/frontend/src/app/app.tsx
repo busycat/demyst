@@ -1,13 +1,11 @@
-import Axios from 'axios-observable';
-import { useEffect } from 'react';
+import { routes } from './app.routes';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { AppChrome } from './Chrome';
 
-export function App() {
-  useEffect(() => {
-    Axios.get('/api').subscribe(console.log);
-  }, []);
-  return (
-    <div className="pagetitle">
-      <h1>Welcome to Demyst Data</h1>
-    </div>
-  );
-}
+const router = createBrowserRouter(routes);
+
+export const App = () => (
+  <AppChrome>
+    <RouterProvider router={router} />
+  </AppChrome>
+);

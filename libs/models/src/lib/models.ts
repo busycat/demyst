@@ -1,3 +1,7 @@
-export function models(): string {
-  return 'models';
+export interface BalanceSheet {
+  year: number;
+  month: number;
+  profitOrLoss: number;
+  assetsValue: number;
 }
+export type BalanceSheets = BalanceSheet[];
