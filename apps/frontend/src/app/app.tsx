@@ -7,7 +7,7 @@ export function App() {
   }, []);
   return (
     <div className="pagetitle">
-      <h1>Hello World</h1>
+      <h1>Welcome to Demyst Data</h1>
     </div>
   );
 }
