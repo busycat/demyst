@@ -3101,6 +3101,11 @@ axe-core@^4.6.2:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.7.2.tgz"
   integrity sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==
 
+axios-observable@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/axios-observable/-/axios-observable-2.0.0.tgz#e98edfbce95a6fd92ac11154a9b25d09b58ee32e"
+  integrity sha512-CINOLfMLwAyf2km/nRBybF9OyWXOfRA5ftoYn2Q+Rb2w4KB/FIylk68y7rgI/na6Jen5/I8R9bt6VtDdF/zoyA==
+
 axios@^1.0.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/axios/-/axios-1.4.0.tgz"
