@@ -1,14 +1,14 @@
 import { RouteObject } from 'react-router-dom';
+import { BalanceSheet } from '../components/balance-sheet/balance-sheet';
+import { ErrorPage } from './error-page';
 
-// export type RouteDef = {
-//   title: string;
-//   component: ReactNode;
-//   url: string;
-//   exact: boolean;
-// };
 export const routes: RouteObject[] = [
   {
-    Component: () => <>Hello</>,
-    path: '',
+    path: 'b',
+    Component: BalanceSheet,
+  },
+  {
+    path: '**',
+    Component: ErrorPage,
   },
 ];

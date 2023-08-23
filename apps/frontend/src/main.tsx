@@ -1,12 +1,23 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { App } from './app/app';
+import { AppChrome } from './app/app-chrome';
+import { ErrorPage } from './app/error-page';
+import { routes } from './app/app.routes';
+
+const router = createBrowserRouter([
+  {
+    element: <AppChrome>Z</AppChrome>,
+    path: '/',
+    errorElement: <ErrorPage />,
+    children: routes,
+  },
+]);
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </StrictMode>
 );

@@ -1,12 +1,11 @@
 import { BalanceSheets } from '@demyst/models';
 import { Axios } from 'axios-observable';
-import { useState, useEffect } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { useState, useEffect, FC } from 'react';
 
 /* eslint-disable-next-line */
 export interface BalanceSheetProps {}
 
-export function BalanceSheet(props: BalanceSheetProps) {
+export const BalanceSheet: FC<BalanceSheetProps> = (props) => {
   const [balanceSheet, setBalanceSheet] = useState<BalanceSheets>();
   useEffect(() => {
     Axios.get<BalanceSheets>('/api/balance-sheet').subscribe({
@@ -18,16 +17,6 @@ export function BalanceSheet(props: BalanceSheetProps) {
     <div>
       <h1>Welcome to BalanceSheet!</h1>
 
-      <ul>
-        <li>
-          <Link to="/">BalanceSheet root</Link>
-        </li>
-      </ul>
-      <Route
-        path="/"
-        element={<div>This is the BalanceSheet root route.</div>}
-      />
-
       {balanceSheet?.map((bs) => (
         <div>
           Asset Value: {bs.assetsValue} with {bs.profitOrLoss}
@@ -35,6 +24,4 @@ export function BalanceSheet(props: BalanceSheetProps) {
       ))}
     </div>
   );
-}
-
-export default BalanceSheet;
+};
