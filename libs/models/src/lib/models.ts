@@ -1,7 +1,7 @@
-export interface BalanceSheet {
+export interface BalanceEntry {
   year: number;
   month: number;
   profitOrLoss: number;
   assetsValue: number;
 }
-export type BalanceSheets = BalanceSheet[];
+export type BalanceSheet = BalanceEntry[];
