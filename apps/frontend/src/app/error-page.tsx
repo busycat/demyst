@@ -1,9 +1,12 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-export const ErrorPage: FC = () => (
+interface Props {
+  message?: string;
+}
+export const ErrorPage: FC<Props> = ({ message }) => (
   <>
-    <h1>Error</h1>
+    <h1>{message ?? 'Error'}</h1>
     <Link to={'/'}>Home</Link>
   </>
 );

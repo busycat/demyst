@@ -8,7 +8,7 @@ export const routes: RouteObject[] = [
     Component: BalanceSheet,
   },
   {
-    path: '**',
-    Component: ErrorPage,
+    path: '*',
+    element: <ErrorPage message="Not Found" />,
   },
 ];

@@ -8,7 +8,7 @@ import { routes } from './app/app.routes';
 
 const router = createBrowserRouter([
   {
-    element: <AppChrome>Z</AppChrome>,
+    Component: AppChrome,
     path: '/',
     errorElement: <ErrorPage />,
     children: routes,

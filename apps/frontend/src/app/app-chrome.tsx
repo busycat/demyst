@@ -1,8 +1,7 @@
-import { FC, ReactNode } from 'react';
-import { Link, Outlet, Route } from 'react-router-dom';
-import { routes } from './app.routes';
+import { FC } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 
-export const AppChrome: FC<{ children: ReactNode }> = ({ children }) => (
+export const AppChrome: FC = () => (
   <>
     <header>
       <ul>
@@ -10,7 +9,7 @@ export const AppChrome: FC<{ children: ReactNode }> = ({ children }) => (
           <Link to={'/b'}>Start Loan</Link>
         </li>
         <li>
-          <Link to={'/'}>Home</Link>
+          <Link to={'/home'}>Home</Link>
         </li>
       </ul>
     </header>
