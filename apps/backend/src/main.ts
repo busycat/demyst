@@ -28,6 +28,10 @@ app.get('/api/balance-sheet', getBalanceSheet(accountingProviderRegistry));
 
 app.use(/(?!\/api\/)/, express.static(path.join(__dirname, 'assets')));
 
+app.get('*', (_, response) =>
+  response.sendFile(path.resolve(__dirname, 'assets/index.html'))
+);
+
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
