@@ -1,12 +1,14 @@
-FROM node:18 as build
+FROM node:18 as base
 WORKDIR /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
 RUN yarn --immutable
+
+FROM base as build
 COPY . .
 RUN yarn build:all
 
-FROM node:18 as server
+FROM base as server
 WORKDIR /usr/src/app
 RUN mkdir -p /usr/src/app/dist/backend
 COPY --from=build /usr/src/app/dist/apps/backend .
