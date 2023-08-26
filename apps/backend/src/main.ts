@@ -10,7 +10,8 @@ const app = express();
 
 // app.use(/(?!\/api\/)/, express.static(path.join(__dirname, 'assets')));
 
-app.get('/api', (req, res) => res.status(200).json({ ok: 123 }));
+app.get('/api', (req, res) => res.status(200).json({ status: 'Healthy' })); // Fake Health Check,
+
 app.get('/api/balance-sheet', getBalanceSheet);
 
 const port = process.env.PORT || 3333;

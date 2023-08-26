@@ -1,18 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-body {
-  background: #7e8;
+html,
+body,
+ul {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  height: 100vh;
+  border: 0;
 }
-.pagetitle {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: #222d;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
+
+.header {
+  --height-header: 32px;
+  background: var(--colorBrandBackground);
 }
