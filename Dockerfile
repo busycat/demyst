@@ -8,6 +8,9 @@ RUN yarn build:all
 
 FROM node:18 as server
 WORKDIR /usr/src/app
-COPY --from=build /usr/src/app/dist/backend .
+RUN mkdir -p /usr/src/app/dist/backend
+COPY --from=build /usr/src/app/dist/apps/backend .
+COPY --from=build /usr/src/app/dist/apps/frontend assets
+RUN ls
 EXPOSE 3333
-CMD [ "node", "server.js" ]
+CMD [ "node", "main.js" ]
