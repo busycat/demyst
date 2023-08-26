@@ -27,10 +27,9 @@ const resolveAsset = (asset: string) => {
 
 const useStyles = makeStyles({
   card: {
-    ...shorthands.margin('auto'),
     width: '720px',
     maxWidth: '100%',
-    ...shorthands.margin(tokens.spacingVerticalM, 'auto'),
+    ...shorthands.margin('', 'auto'),
   },
 });
 

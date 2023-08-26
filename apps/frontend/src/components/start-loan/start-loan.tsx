@@ -1,30 +1,24 @@
-import {
-  Button,
-  Spinner,
-  Title1,
-  makeStyles,
-  shorthands,
-  tokens,
-} from '@fluentui/react-components';
+import { Button, Spinner, Title1 } from '@fluentui/react-components';
 import BusinessDetailsForm from '../business-details-form/business-details-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Axios from 'axios-observable';
+import { StartApplication } from '@demyst/models';
 
 /* eslint-disable-next-line */
 export interface StartLoanProps {}
 
-const useStyles = makeStyles({
-  page: {
-    ...shorthands.margin(tokens.spacingVerticalM, 'auto'),
-  },
-});
-
 export function StartLoan(props: StartLoanProps) {
-  const [token, setToken] = useState<string>();
+  const [token, setToken] = useState<StartApplication>();
+  useEffect(() => {
+    Axios.get<StartApplication>('/api/initiate-application').subscribe({
+      next: ({ data }) => setToken(data),
+    });
+  }, []);
 
   return token ? (
     <>
       <Title1>Start Loan</Title1>
-      <BusinessDetailsForm />
+      <BusinessDetailsForm providers={token.providers} token={token.token} />
       <Button>Submit</Button>
     </>
   ) : (

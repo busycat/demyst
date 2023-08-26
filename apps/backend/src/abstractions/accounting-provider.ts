@@ -1,6 +1,6 @@
 import { BalanceSheet } from '@demyst/models';
 
-const AccountingProviderList = ['Simulated', 'Xero', 'MYOB'] as const;
+export const AccountingProviderList = ['Simulated', 'Xero', 'MYOB'] as const;
 type AccountingProvider = (typeof AccountingProviderList)[number];
 
 export interface IAccountingProvider {

@@ -5,6 +5,7 @@
 
 import express from 'express';
 import { getBalanceSheet } from './controllers/balance-sheet';
+import { getApplicationToken } from './controllers/initiate-application';
 
 const app = express();
 
@@ -13,6 +14,7 @@ const app = express();
 app.get('/api', (req, res) => res.status(200).json({ status: 'Healthy' })); // Fake Health Check,
 
 app.get('/api/balance-sheet', getBalanceSheet);
+app.get('/api/initiate-application', getApplicationToken);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {
