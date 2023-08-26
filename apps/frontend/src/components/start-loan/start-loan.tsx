@@ -1,4 +1,8 @@
 import {
+  Accordion,
+  AccordionHeader,
+  AccordionItem,
+  AccordionPanel,
   Body1,
   Button,
   Card,
@@ -18,10 +22,12 @@ import {
   StartApplication,
 } from '@demyst/models';
 import { MoneyRegular, ShareRegular } from '@fluentui/react-icons';
+import { BalanceSheetComp } from '../balance-sheet/balance-sheet';
 
 export const StartLoan: FC = () => {
   const [token, setToken] = useState<StartApplication>();
   const [t2, setT2] = useState<LoanApplicationRequest>();
+  const [balanceSheet, setBalanceSheet] = useState<BalanceSheet>();
 
   useEffect(() => {
     Axios.get<StartApplication>('/api/initiate-application').subscribe({
@@ -33,7 +39,7 @@ export const StartLoan: FC = () => {
     Axios.get<BalanceSheet>('/api/balance-sheet', {
       params,
     }).subscribe({
-      next: ({ data }) => console.log(data),
+      next: ({ data }) => setBalanceSheet(data),
     });
   }, []);
 
@@ -41,7 +47,6 @@ export const StartLoan: FC = () => {
     <>
       <Title1>Start Loan</Title1>
       <Card>
-        <CardHeader header={<Body1>Start Loan Application</Body1>} />
         <CardPreview>
           <BusinessDetailsForm
             isReadOnly={!!t2}
@@ -60,11 +65,11 @@ export const StartLoan: FC = () => {
             }}
           />
         </CardPreview>
-
-        <CardFooter>
-          <Button icon={<MoneyRegular fontSize={16} />}>Start loan</Button>
-          <Button icon={<ShareRegular fontSize={16} />}>Know more</Button>
-        </CardFooter>
+      </Card>
+      <Card>
+        <CardPreview>
+          {balanceSheet && <BalanceSheetComp balanceSheet={balanceSheet} />}
+        </CardPreview>
       </Card>
     </>
   ) : (

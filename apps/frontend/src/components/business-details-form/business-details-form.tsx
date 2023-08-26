@@ -12,7 +12,12 @@ import {
   Textarea,
   mergeClasses,
 } from '@fluentui/react-components';
-import { BuildingRegular, MailRegular } from '@fluentui/react-icons';
+import {
+  BuildingRegular,
+  CalendarRegular,
+  MailRegular,
+  PhoneRegular,
+} from '@fluentui/react-icons';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -76,7 +81,7 @@ export const BusinessDetailsForm: FC<Props> = ({
             styles.input,
             errors.companyName ? styles.error : undefined
           )}
-          contentBefore={<BuildingRegular />}
+          contentAfter={<BuildingRegular />}
           {...register('companyName', {
             disabled: isReadOnly,
             required: 'Company Name is required',
@@ -86,7 +91,7 @@ export const BusinessDetailsForm: FC<Props> = ({
             },
             minLength: {
               value: 5,
-              message: 'Company Name should be min 128 characters.',
+              message: 'Company Name should be min 5 characters.',
             },
           })}
         />
@@ -104,7 +109,7 @@ export const BusinessDetailsForm: FC<Props> = ({
             errors.companyEmail ? styles.error : undefined
           )}
           type="email"
-          contentBefore={<MailRegular />}
+          contentAfter={<MailRegular />}
           {...register('companyEmail', {
             disabled: isReadOnly,
             required: 'Email is required.',
@@ -128,8 +133,8 @@ export const BusinessDetailsForm: FC<Props> = ({
             errors.establishmentDate ? styles.error : undefined
           )}
           max={Date.now()}
-          type="date"
-          contentBefore={<MailRegular />}
+          type="month"
+          contentAfter={<CalendarRegular />}
           {...register('establishmentDate', {
             disabled: isReadOnly,
             required: 'Establishment Date is required.',
@@ -165,7 +170,7 @@ export const BusinessDetailsForm: FC<Props> = ({
             styles.input,
             errors.companyPhone ? styles.error : undefined
           )}
-          contentBefore={<BuildingRegular />}
+          contentAfter={<PhoneRegular />}
           {...register('companyPhone', {
             disabled: isReadOnly,
             pattern: {
