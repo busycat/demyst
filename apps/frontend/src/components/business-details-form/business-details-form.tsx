@@ -11,7 +11,6 @@ import {
   tokens,
   Textarea,
   mergeClasses,
-  DatePicker,
 } from '@fluentui/react-components';
 import { BuildingRegular, MailRegular } from '@fluentui/react-icons';
 import { FC } from 'react';
@@ -123,20 +122,17 @@ export const BusinessDetailsForm: FC<Props> = ({
       </div>
       <div className={styles.inputContainer}>
         <Label className={styles.label}>Establishment Date</Label>
-        <DatePicker
+        <Input
           className={mergeClasses(
             styles.input,
             errors.establishmentDate ? styles.error : undefined
           )}
+          max={Date.now()}
           type="date"
           contentBefore={<MailRegular />}
           {...register('establishmentDate', {
             disabled: isReadOnly,
             required: 'Establishment Date is required.',
-            pattern: {
-              value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i,
-              message: 'Please enter valid email.',
-            },
           })}
         />
         {errors.establishmentDate && (

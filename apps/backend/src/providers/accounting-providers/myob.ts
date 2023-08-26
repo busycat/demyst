@@ -1,9 +1,8 @@
 import { BalanceSheet } from '@demyst/models';
 import { IAccountingProvider } from '../../abstractions/accounting-provider';
 
-export class SimulatedAccountingProvider implements IAccountingProvider {
-  name: 'simulated';
-
+export class MyobAccountingProvider implements IAccountingProvider {
+  name: 'myob';
   getBalanceSheet(): BalanceSheet {
     return [
       {

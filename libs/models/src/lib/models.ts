@@ -1,6 +1,8 @@
 import { AccountingProviderList } from './misc';
 
-export type AccountingProvider = (typeof AccountingProviderList)[number];
+export type AccountingProvider = Lowercase<
+  (typeof AccountingProviderList)[number]
+>;
 
 export interface BalanceEntry {
   year: number;
@@ -19,7 +21,7 @@ export interface StartApplication {
   token: string;
   providers: {
     name: string;
-    value: string;
+    value: AccountingProvider;
   }[];
 }
 
