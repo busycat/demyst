@@ -55,7 +55,10 @@ export const Header: FC<Props> = ({ onThemeChange }) => {
         <HomeRegular />
         Home
       </Link>
-      <Link to={'/b'} className={mergeClasses(styles.headerColor, styles.link)}>
+      <Link
+        to={'/start-loan-application'}
+        className={mergeClasses(styles.headerColor, styles.link)}
+      >
         <PlayRegular />
         Start Loan
       </Link>

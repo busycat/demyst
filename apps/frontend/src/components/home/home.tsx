@@ -1,4 +1,3 @@
-import { BalanceSheet } from '@demyst/models';
 import {
   Body1,
   Button,
@@ -11,14 +10,9 @@ import {
   shorthands,
   tokens,
 } from '@fluentui/react-components';
-import {
-  ArrowReplyRegular,
-  Money16Filled,
-  MoneyRegular,
-  ShareRegular,
-} from '@fluentui/react-icons';
-import { Axios } from 'axios-observable';
-import { useState, useEffect, FC } from 'react';
+import { MoneyRegular, ShareRegular } from '@fluentui/react-icons';
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface BalanceSheetProps {}
@@ -41,6 +35,9 @@ const useStyles = makeStyles({
 
 export const Home: FC<BalanceSheetProps> = (props) => {
   const styles = useStyles();
+
+  const navigate = useNavigate();
+
   return (
     <Card className={styles.card}>
       <CardHeader
@@ -70,7 +67,12 @@ export const Home: FC<BalanceSheetProps> = (props) => {
       </CardPreview>
 
       <CardFooter>
-        <Button icon={<MoneyRegular fontSize={16} />}>Start loan</Button>
+        <Button
+          onClick={() => navigate('/start-loan-application')}
+          icon={<MoneyRegular fontSize={16} />}
+        >
+          Start loan
+        </Button>
         <Button icon={<ShareRegular fontSize={16} />}>Know more</Button>
       </CardFooter>
     </Card>
