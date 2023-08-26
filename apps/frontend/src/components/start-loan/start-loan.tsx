@@ -21,7 +21,6 @@ import {
   LoanApplicationRequest,
   StartApplication,
 } from '@demyst/models';
-import { MoneyRegular, ShareRegular } from '@fluentui/react-icons';
 import { BalanceSheetComp } from '../balance-sheet/balance-sheet';
 
 export const StartLoan: FC = () => {
@@ -67,9 +66,13 @@ export const StartLoan: FC = () => {
         </CardPreview>
       </Card>
       <Card>
+        <CardHeader header={<>Validate balance sheet</>} />
         <CardPreview>
           {balanceSheet && <BalanceSheetComp balanceSheet={balanceSheet} />}
         </CardPreview>
+        <CardFooter>
+          <Button>Submit application</Button>
+        </CardFooter>
       </Card>
     </>
   ) : (
