@@ -3,24 +3,15 @@
  * This is only a minimal backend to get started.
  */
 
-import { BalanceSheet } from '@demyst/models';
 import express from 'express';
-import * as path from 'path';
-import { getBalanceSheetRoute } from './controllers/balance-sheet';
-import { SimulatedAccountingProvider } from './providers/accounting-providers';
-import { IAccountingProvider } from './abstractions/accounting-provider';
-
-const accountingProvider: IAccountingProvider =
-  new SimulatedAccountingProvider();
+import { getBalanceSheet } from './controllers/balance-sheet';
 
 const app = express();
 
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+// app.use(/(?!\/api\/)/, express.static(path.join(__dirname, 'assets')));
 
-app.get<unknown, BalanceSheet>(
-  '/api/balance-sheet',
-  getBalanceSheetRoute(accountingProvider)
-);
+app.get('/api', (req, res) => res.status(200).json({ ok: 123 }));
+app.get('/api/balance-sheet', getBalanceSheet);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

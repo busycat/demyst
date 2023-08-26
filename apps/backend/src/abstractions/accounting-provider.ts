@@ -6,5 +6,5 @@ type AccountingProvider = (typeof AccountingProviderList)[number];
 export interface IAccountingProvider {
   name: AccountingProvider;
   // Todo: Make it async
-  getBalanceSheet(_: { token: string }): BalanceSheet;
+  getBalanceSheet(): BalanceSheet;
 }
