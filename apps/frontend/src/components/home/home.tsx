@@ -13,6 +13,7 @@ import {
 import { MoneyRegular, ShareRegular } from '@fluentui/react-icons';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { appUrls } from '../../constants/appUrls';
 
 /* eslint-disable-next-line */
 export interface BalanceSheetProps {}
@@ -41,12 +42,7 @@ export const Home: FC<BalanceSheetProps> = (props) => {
   return (
     <Card className={styles.card}>
       <CardHeader
-        image={
-          <img
-            src={resolveAsset('avatar_elvia.svg')}
-            alt="Elvia Atkins avatar picture"
-          />
-        }
+        image={<img src={resolveAsset('avatar_elvia.svg')} alt="" />}
         header={
           <Body1>
             <b>Shubham Sharma</b> Posted
@@ -68,7 +64,7 @@ export const Home: FC<BalanceSheetProps> = (props) => {
 
       <CardFooter>
         <Button
-          onClick={() => navigate('/start-loan-application')}
+          onClick={() => navigate(appUrls.startLoan)}
           icon={<MoneyRegular fontSize={16} />}
         >
           Start loan

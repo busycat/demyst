@@ -5,16 +5,14 @@ import {
   shorthands,
 } from '@fluentui/react-components';
 import {
-  DarkThemeRegular,
   HomeRegular,
   PlayRegular,
   WeatherSunny16Filled,
-  WeatherSunny24Regular,
-  WeatherSunnyRegular,
 } from '@fluentui/react-icons';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { tokens } from '@fluentui/react-theme';
+import { appUrls } from '../constants/appUrls';
 interface Props {
   // emits True for Dark theme
   onThemeChange(): void;
@@ -49,14 +47,14 @@ export const Header: FC<Props> = ({ onThemeChange }) => {
   return (
     <div className={styles.header}>
       <Link
-        to={'/home'}
+        to={appUrls.home}
         className={mergeClasses(styles.headerColor, styles.link)}
       >
         <HomeRegular />
         Home
       </Link>
       <Link
-        to={'/start-loan-application'}
+        to={appUrls.startLoan}
         className={mergeClasses(styles.headerColor, styles.link)}
       >
         <PlayRegular />

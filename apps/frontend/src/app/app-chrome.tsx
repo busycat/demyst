@@ -14,7 +14,10 @@ import { Footer } from './footer';
 export const AppChrome: FC = () => {
   const [themeIsDark, setThemeIsDark] = useState(false);
   return (
-    <FluentProvider theme={getTheme(themeIsDark)}>
+    <FluentProvider
+      theme={getTheme(themeIsDark)}
+      style={{ minHeight: '100vh' }}
+    >
       <Header onThemeChange={() => setThemeIsDark((p) => !p)} />
       <Outlet />
       <Footer />
