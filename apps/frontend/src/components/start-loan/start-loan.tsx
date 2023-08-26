@@ -19,7 +19,6 @@ export function StartLoan(props: StartLoanProps) {
     <>
       <Title1>Start Loan</Title1>
       <BusinessDetailsForm providers={token.providers} token={token.token} />
-      <Button>Submit</Button>
     </>
   ) : (
     <Spinner></Spinner>

@@ -13,3 +13,13 @@ export interface StartApplication {
     value: string;
   }[];
 }
+
+export interface LoanApplicationRequest {
+  token: string;
+  companyName: string;
+  companyEmail: string;
+  companyAddress: string;
+  companyPhone: number;
+  provider: string;
+  amount: number;
+}
