@@ -1,9 +1,18 @@
+import { AccountingProviderList } from './misc';
+
+export type AccountingProvider = (typeof AccountingProviderList)[number];
+
 export interface BalanceEntry {
   year: number;
   month: number;
   profitOrLoss: number;
   assetsValue: number;
 }
+export interface BalanceSheetRequest {
+  token: string;
+  provider: AccountingProvider;
+}
+
 export type BalanceSheet = BalanceEntry[];
 
 export interface StartApplication {
@@ -20,6 +29,7 @@ export interface LoanApplicationRequest {
   companyEmail: string;
   companyAddress: string;
   companyPhone: number;
-  provider: string;
+  establishmentDate: Date;
+  provider: AccountingProvider;
   amount: number;
 }

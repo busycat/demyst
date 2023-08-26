@@ -1,6 +1,5 @@
-import { StartApplication } from '@demyst/models';
+import { AccountingProviderList, StartApplication } from '@demyst/models';
 import { uuid } from 'uuidv4';
-import { AccountingProviderList } from '../abstractions/accounting-provider';
 
 export const getApplicationToken = (req, res) => {
   const response: StartApplication = {

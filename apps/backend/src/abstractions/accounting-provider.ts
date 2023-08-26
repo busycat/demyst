@@ -1,7 +1,4 @@
-import { BalanceSheet } from '@demyst/models';
-
-export const AccountingProviderList = ['Simulated', 'Xero', 'MYOB'] as const;
-type AccountingProvider = (typeof AccountingProviderList)[number];
+import { AccountingProvider, BalanceSheet } from '@demyst/models';
 
 export interface IAccountingProvider {
   name: AccountingProvider;

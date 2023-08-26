@@ -11,12 +11,16 @@ import {
   tokens,
   Textarea,
   mergeClasses,
+  DatePicker,
 } from '@fluentui/react-components';
 import { BuildingRegular, MailRegular } from '@fluentui/react-icons';
 import { FC } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-type Props = StartApplication;
+type Props = StartApplication & {
+  onSubmitLoanApplication: (_: LoanApplicationRequest) => void;
+  isReadOnly: boolean;
+};
 
 const useStyles = makeStyles({
   inputContainer: {
@@ -29,6 +33,9 @@ const useStyles = makeStyles({
   input: {
     width: '200px',
   },
+  container: {
+    ...shorthands.padding(tokens.spacingVerticalL, tokens.spacingHorizontalL),
+  },
   label: {
     ...shorthands.flex(0, 0, '150px'),
   },
@@ -40,25 +47,28 @@ const useStyles = makeStyles({
   },
 });
 
-export const BusinessDetailsForm: FC<Props> = ({ providers, token }) => {
+export const BusinessDetailsForm: FC<Props> = ({
+  providers,
+  token,
+  onSubmitLoanApplication: submitLoanApplication,
+  isReadOnly,
+}) => {
   const styles = useStyles();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoanApplicationRequest>({
-    defaultValues: {
-      amount: 9999,
-      companyName: 'Shubham',
-      provider: 'myob',
-      companyEmail: 'cossth@gmail.com',
-    },
+    // defaultValues: {
+    //   amount: 9999,
+    //   companyName: 'Shubham',
+    //   provider: 'myob',
+    //   companyEmail: 'cossth@gmail.com',
+    // },
   });
-  const onSubmit: SubmitHandler<LoanApplicationRequest> = (data) =>
-    console.log(data);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <div className={styles.container}>
       <input type="hidden" value={token} {...register('token')} />
       <div className={styles.inputContainer}>
         <Label className={styles.label}>Company name</Label>
@@ -69,6 +79,7 @@ export const BusinessDetailsForm: FC<Props> = ({ providers, token }) => {
           )}
           contentBefore={<BuildingRegular />}
           {...register('companyName', {
+            disabled: isReadOnly,
             required: 'Company Name is required',
             maxLength: {
               value: 128,
@@ -96,6 +107,7 @@ export const BusinessDetailsForm: FC<Props> = ({ providers, token }) => {
           type="email"
           contentBefore={<MailRegular />}
           {...register('companyEmail', {
+            disabled: isReadOnly,
             required: 'Email is required.',
             pattern: {
               value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i,
@@ -110,13 +122,39 @@ export const BusinessDetailsForm: FC<Props> = ({ providers, token }) => {
         )}
       </div>
       <div className={styles.inputContainer}>
+        <Label className={styles.label}>Establishment Date</Label>
+        <DatePicker
+          className={mergeClasses(
+            styles.input,
+            errors.establishmentDate ? styles.error : undefined
+          )}
+          type="date"
+          contentBefore={<MailRegular />}
+          {...register('establishmentDate', {
+            disabled: isReadOnly,
+            required: 'Establishment Date is required.',
+            pattern: {
+              value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+              message: 'Please enter valid email.',
+            },
+          })}
+        />
+        {errors.establishmentDate && (
+          <Body1 className={styles.errorText}>
+            {errors.establishmentDate?.message}
+          </Body1>
+        )}
+      </div>
+      <div className={styles.inputContainer}>
         <Label className={styles.label}>Address</Label>
         <Textarea
           className={mergeClasses(
             styles.input,
             errors.companyAddress ? styles.error : undefined
           )}
-          {...register('companyAddress')}
+          {...register('companyAddress', {
+            disabled: isReadOnly,
+          })}
         />
         {errors.companyAddress && (
           <Body1 className={styles.errorText}>
@@ -133,6 +171,7 @@ export const BusinessDetailsForm: FC<Props> = ({ providers, token }) => {
           )}
           contentBefore={<BuildingRegular />}
           {...register('companyPhone', {
+            disabled: isReadOnly,
             pattern: {
               value: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
               message: 'Phone number should be valid.',
@@ -156,6 +195,7 @@ export const BusinessDetailsForm: FC<Props> = ({ providers, token }) => {
           contentBefore={<Text size={400}>$</Text>}
           contentAfter={<Text size={400}>.00</Text>}
           {...register('amount', {
+            disabled: isReadOnly,
             required: 'Amount is required.',
             min: {
               value: 1000,
@@ -179,6 +219,7 @@ export const BusinessDetailsForm: FC<Props> = ({ providers, token }) => {
             errors.provider ? styles.error : undefined
           )}
           {...register('provider', {
+            disabled: isReadOnly,
             required: 'Please select accounting provider.',
           })}
         >
@@ -192,9 +233,10 @@ export const BusinessDetailsForm: FC<Props> = ({ providers, token }) => {
           <Body1 className={styles.errorText}>{errors.provider?.message}</Body1>
         )}
       </div>
-
-      <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-    </form>
+      {!isReadOnly && (
+        <Button onClick={handleSubmit(submitLoanApplication)}>Continue</Button>
+      )}
+    </div>
   );
 };
 
