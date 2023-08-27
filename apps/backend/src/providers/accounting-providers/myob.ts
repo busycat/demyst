@@ -1,11 +1,12 @@
 import { BalanceSheet } from '@demyst/models';
 import { IAccountingProvider } from '../../abstractions/accounting-provider';
+import { port } from '../../main';
 
 export class MyobAccountingProvider implements IAccountingProvider {
   name: 'myob';
   async getBalanceSheet(): Promise<BalanceSheet> {
     const bs: BalanceSheet = await fetch(
-      `http://localhost:${process.env.PORT}/balancesheet.json`
+      `http://localhost:${port}/balancesheet.json`
     ).then((res) => res.json());
 
     const response = bs.map((a) => ({

@@ -14,6 +14,7 @@ RUN mkdir -p /usr/src/app/dist/backend
 COPY --from=build /usr/src/app/dist/apps/backend .
 COPY --from=build /usr/src/app/dist/apps/frontend assets
 COPY .env .
+ENV PORT=3333
 RUN ls
 EXPOSE 3333
 
