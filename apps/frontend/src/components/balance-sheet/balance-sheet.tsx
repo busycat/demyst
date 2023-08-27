@@ -1,4 +1,4 @@
-import { BalanceEntry, BalanceSheet } from '@demyst/models';
+import { BalanceEntry, BalanceSheet, Months } from '@demyst/models';
 import {
   DataGrid,
   DataGridHeader,
@@ -10,6 +10,7 @@ import {
   createTableColumn,
 } from '@fluentui/react-components';
 import { FC } from 'react';
+import { Currency } from '../currency/currency';
 
 export interface BalanceSheetProps {
   balanceSheet: BalanceSheet;
@@ -31,7 +32,7 @@ const columns: TableColumnDefinition<BalanceEntry>[] = [
       return 'Month';
     },
     renderCell: (item) => {
-      return item.month;
+      return Months[item.month % 12];
     },
   }),
   createTableColumn<BalanceEntry>({
@@ -40,7 +41,7 @@ const columns: TableColumnDefinition<BalanceEntry>[] = [
       return 'Assets Value';
     },
     renderCell: (item) => {
-      return item.assetsValue;
+      return <Currency amount={item.assetsValue} />;
     },
   }),
   createTableColumn<BalanceEntry>({
@@ -49,7 +50,7 @@ const columns: TableColumnDefinition<BalanceEntry>[] = [
       return 'Profit or Loss';
     },
     renderCell: (item) => {
-      return item.profitOrLoss;
+      return <Currency amount={item.profitOrLoss} />;
     },
   }),
 ];

@@ -1,4 +1,8 @@
-import { LoanApplicationRequest, StartApplication } from '@demyst/models';
+import {
+  CURRENCY_SYMBOL,
+  LoanApplicationRequest,
+  StartApplication,
+} from '@demyst/models';
 import {
   Body1,
   Button,
@@ -194,7 +198,7 @@ export const BusinessDetailsForm: FC<Props> = ({
             styles.input,
             errors.amount ? styles.error : undefined
           )}
-          contentBefore={<Text size={400}>$</Text>}
+          contentBefore={<Text size={400}>{CURRENCY_SYMBOL}</Text>}
           contentAfter={<Text size={400}>.00</Text>}
           {...register('amount', {
             disabled: isReadOnly,

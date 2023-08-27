@@ -4,8 +4,8 @@ import { IAccountingProvider } from '../../abstractions/accounting-provider';
 export class SimulatedAccountingProvider implements IAccountingProvider {
   name: 'simulated';
 
-  getBalanceSheet(): BalanceSheet {
-    return [
+  async getBalanceSheet(): Promise<BalanceSheet> {
+    return await Promise.resolve([
       {
         year: 2020,
         month: 12,
@@ -30,6 +30,6 @@ export class SimulatedAccountingProvider implements IAccountingProvider {
         profitOrLoss: -187000,
         assetsValue: 223452,
       },
-    ];
+    ]);
   }
 }

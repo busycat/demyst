@@ -8,13 +8,13 @@ import {
 
 export const getBalanceSheet =
   (accountingProviderRegistry: Map<AccountingProvider, IAccountingProvider>) =>
-  (
+  async (
     req: Request<unknown, unknown, unknown, BalanceSheetRequest>,
     res: Response<BalanceSheet>
   ) => {
     const accountingProvider = accountingProviderRegistry.get(
       req.query.provider as AccountingProvider
     );
-
-    res.status(200).json(accountingProvider.getBalanceSheet());
+    const response = await accountingProvider.getBalanceSheet();
+    res.status(200).json(response);
   };
