@@ -14,6 +14,10 @@ export const routes: RouteObject[] = [
     Component: Home,
   },
   {
+    path: '',
+    Component: Home,
+  },
+  {
     path: '*',
     element: <ErrorPage message="Not Found" />,
   },

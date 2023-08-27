@@ -18,8 +18,7 @@ import { appUrls } from '../../constants/appUrls';
 export interface BalanceSheetProps {}
 
 const resolveAsset = (asset: string) => {
-  const ASSET_URL =
-    'https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/';
+  const ASSET_URL = '/assets/';
 
   return `${ASSET_URL}${asset}`;
 };
@@ -40,7 +39,7 @@ export const Home: FC<BalanceSheetProps> = (props) => {
   return (
     <Card className={styles.card}>
       <CardHeader
-        image={<img src={resolveAsset('avatar_elvia.svg')} alt="" />}
+        image={<img width={50} src={resolveAsset('profile.jpg')} alt="" />}
         header={
           <Body1>
             <b>Shubham Sharma</b> Posted

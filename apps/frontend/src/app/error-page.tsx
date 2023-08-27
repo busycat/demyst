@@ -7,6 +7,6 @@ interface Props {
 export const ErrorPage: FC<Props> = ({ message }) => (
   <>
     <h1>{message ?? 'Error'}</h1>
-    <Link to={'/'}>Home</Link>
+    Please click below link to go to <Link to={'/'}>Home Page</Link>
   </>
 );

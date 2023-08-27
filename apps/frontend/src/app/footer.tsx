@@ -8,7 +8,17 @@ import { FC } from 'react';
 export const Footer: FC = () => {
   return (
     <div
-      style={{ height: '3rem', padding: '2rem', gap: '1rem', display: 'flex' }}
+      style={{
+        height: '3rem',
+        padding: '0 2rem',
+        gap: '1rem',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+      }}
     >
       <Body1>
         Made with <Heart16Filled /> by{' '}

@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CardFooter,
-  CardHeader,
   CardPreview,
   Spinner,
   Title1,
@@ -75,6 +74,7 @@ export const StartLoan: FC = () => {
       next: ({ data }) => setOutcome(data),
     });
   }, []);
+
   // This stage variable could be more meaningful,
   const stage = [loanDetails, balanceSheet, outcome].filter(Boolean).length;
 
@@ -83,7 +83,16 @@ export const StartLoan: FC = () => {
   return token ? (
     <>
       <div className={styles.centerAlign}>
-        <Title1>Start loan application</Title1>
+        <Title1>Loan application</Title1>
+        <div>
+          <Title3>
+            {stage === 1
+              ? 'Fill Business Details & Loan amount'
+              : stage === 2
+              ? 'View outcome'
+              : ''}
+          </Title3>
+        </div>
       </div>
       <Card className={styles.card}>
         {stage === 0 && (
@@ -109,7 +118,6 @@ export const StartLoan: FC = () => {
         {stage === 1 && <Body1>Getting balance sheet</Body1>}
         {stage === 2 && (
           <>
-            <CardHeader header={<>Review balance sheet</>} />
             <CardPreview>
               {balanceSheet && <BalanceSheetComp balanceSheet={balanceSheet} />}
             </CardPreview>
@@ -130,7 +138,6 @@ export const StartLoan: FC = () => {
         )}
         {outcome && (
           <>
-            <CardHeader header={<>View Outcome</>} />
             <CardPreview>
               <CheckmarkStarburstFilled className={styles.checkMark} />
               <Title3 className={styles.centerAlign}>
