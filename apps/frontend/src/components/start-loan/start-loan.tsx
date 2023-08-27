@@ -1,8 +1,4 @@
 import {
-  Accordion,
-  AccordionHeader,
-  AccordionItem,
-  AccordionPanel,
   Body1,
   Button,
   Card,
@@ -11,6 +7,10 @@ import {
   CardPreview,
   Spinner,
   Title1,
+  Title3,
+  makeStyles,
+  shorthands,
+  tokens,
 } from '@fluentui/react-components';
 import BusinessDetailsForm from '../business-details-form/business-details-form';
 import { FC, useCallback, useEffect, useState } from 'react';
@@ -24,11 +24,35 @@ import {
   StartApplication,
 } from '@demyst/models';
 import { BalanceSheetComp } from '../balance-sheet/balance-sheet';
+import { appUrls } from '../../constants/appUrls';
+import { useNavigate } from 'react-router-dom';
+import { CheckmarkStarburstFilled } from '@fluentui/react-icons';
+import { Currency } from '../currency/currency';
+
+const useStyles = makeStyles({
+  card: {
+    width: '720px',
+    maxWidth: '100%',
+    ...shorthands.margin(tokens.spacingVerticalL, 'auto'),
+  },
+  centerAlign: {
+    textAlign: 'center',
+  },
+  checkMark: {
+    width: '200px !important',
+    color: tokens.colorPaletteLightGreenForeground2,
+    ...shorthands.margin(0, 'auto'),
+  },
+});
 
 export const StartLoan: FC = () => {
+  const navigate = useNavigate();
+  const styles = useStyles();
+
   // TODO: Here the states could be better managed if we use a reducer
   const [token, setToken] = useState<StartApplication>();
-  const [t2, setT2] = useState<LoanApplicationRequest>();
+
+  const [loanDetails, setLoanDetails] = useState<LoanApplicationRequest>();
   const [balanceSheet, setBalanceSheet] = useState<BalanceSheet>();
   const [outcome, setOutcome] = useState<DecisionOutcome>();
 
@@ -51,67 +75,84 @@ export const StartLoan: FC = () => {
       next: ({ data }) => setOutcome(data),
     });
   }, []);
+  // This stage variable could be more meaningful,
+  const stage = [loanDetails, balanceSheet, outcome].filter(Boolean).length;
+
+  console.log('Stage ', stage);
 
   return token ? (
     <>
-      <Title1>Start Loan</Title1>
-      <Card>
-        <CardPreview>
-          <BusinessDetailsForm
-            isReadOnly={!!t2}
-            providers={token.providers}
-            token={token.token}
-            onSubmitLoanApplication={(loanApplication) => {
-              setT2(loanApplication);
-              localStorage.setItem(
-                'Application',
-                JSON.stringify(loanApplication)
-              );
-              getBalanceSheet({
-                provider: loanApplication.provider,
-                token: loanApplication.token,
-              });
-            }}
-          />
-        </CardPreview>
-      </Card>
-      <Card>
-        <CardHeader header={<>Review balance sheet</>} />
-        <CardPreview>
-          {balanceSheet && <BalanceSheetComp balanceSheet={balanceSheet} />}
-        </CardPreview>
-        <CardFooter>
-          <Button
-            disabled={!t2 || !balanceSheet}
-            onClick={() => {
-              if (!balanceSheet || !t2) {
-                throw new Error('Balance sheet or loan request not found');
-              }
-              return getDecision({ ...t2, sheet: balanceSheet });
-            }}
-          >
-            Submit application
-          </Button>
-        </CardFooter>
-      </Card>
-      {outcome && (
-        <Card>
-          <CardHeader header={<>View Outcome</>} />
+      <div className={styles.centerAlign}>
+        <Title1>Start loan application</Title1>
+      </div>
+      <Card className={styles.card}>
+        {stage === 0 && (
           <CardPreview>
-            <Body1>Loan is approved for {outcome.approvedAmount}</Body1>
-          </CardPreview>
-          <CardFooter>
-            <Button
-              disabled={!outcome}
-              onClick={() => {
-                window.print();
+            <BusinessDetailsForm
+              isReadOnly={!!loanDetails}
+              providers={token.providers}
+              token={token.token}
+              onSubmitLoanApplication={(loanApplication) => {
+                setLoanDetails(loanApplication);
+                localStorage.setItem(
+                  'Application',
+                  JSON.stringify(loanApplication)
+                );
+                getBalanceSheet({
+                  provider: loanApplication.provider,
+                  token: loanApplication.token,
+                });
               }}
-            >
-              Print Application
-            </Button>
-          </CardFooter>
-        </Card>
-      )}
+            />
+          </CardPreview>
+        )}
+        {stage === 1 && <Body1>Getting balance sheet</Body1>}
+        {stage === 2 && (
+          <>
+            <CardHeader header={<>Review balance sheet</>} />
+            <CardPreview>
+              {balanceSheet && <BalanceSheetComp balanceSheet={balanceSheet} />}
+            </CardPreview>
+            <CardFooter>
+              <Button
+                disabled={!loanDetails || !balanceSheet}
+                onClick={() => {
+                  if (!balanceSheet || !loanDetails) {
+                    throw new Error('Balance sheet or loan request not found');
+                  }
+                  return getDecision({ ...loanDetails, sheet: balanceSheet });
+                }}
+              >
+                Submit application
+              </Button>
+            </CardFooter>
+          </>
+        )}
+        {outcome && (
+          <>
+            <CardHeader header={<>View Outcome</>} />
+            <CardPreview>
+              <CheckmarkStarburstFilled className={styles.checkMark} />
+              <Title3 className={styles.centerAlign}>
+                Congratulations!
+                <br />
+                Your loan is approved for
+                <Currency amount={outcome.approvedAmount} />
+              </Title3>
+            </CardPreview>
+            <CardFooter>
+              <Button
+                onClick={() => {
+                  window.print();
+                }}
+              >
+                Print
+              </Button>
+              <Button onClick={() => navigate(appUrls.home)}>Home</Button>
+            </CardFooter>
+          </>
+        )}
+      </Card>
     </>
   ) : (
     <Spinner></Spinner>

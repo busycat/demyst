@@ -8,7 +8,6 @@ import {
   CardPreview,
   makeStyles,
   shorthands,
-  tokens,
 } from '@fluentui/react-components';
 import { MoneyRegular, ShareRegular } from '@fluentui/react-icons';
 import { FC } from 'react';
