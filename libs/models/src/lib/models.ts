@@ -58,6 +58,6 @@ export type DecisionRequest = LoanApplicationRequest & {
 
 export interface DecisionOutcome {
   token: string;
-  outcome: string;
+  outcome: 'Approved' | 'Rejected';
   approvedAmount: number;
 }

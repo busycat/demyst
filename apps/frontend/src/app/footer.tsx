@@ -1,8 +1,6 @@
 import { Body1, Button } from '@fluentui/react-components';
 import {
   Code16Filled,
-  Code24Filled,
-  CodeFilled,
   Heart16Filled,
   Link12Filled,
 } from '@fluentui/react-icons';

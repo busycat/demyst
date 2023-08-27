@@ -5,7 +5,7 @@ export const createDecision = (
   req: Request<unknown, unknown, DecisionRequest>,
   res: Response<DecisionOutcome>
 ) => {
-  const { amount, sheet }: DecisionRequest = req.body;
+  const { amount, sheet, token }: DecisionRequest = req.body;
   let preAssessment = 20;
 
   // Assuming sheet is provided in decending Order and contains atleast 1 year of data
@@ -31,6 +31,6 @@ export const createDecision = (
   res.status(200).json({
     approvedAmount,
     outcome: 'Approved',
-    token: '',
+    token,
   });
 };
