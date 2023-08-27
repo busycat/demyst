@@ -39,18 +39,18 @@ export const Home: FC<BalanceSheetProps> = (props) => {
   return (
     <Card className={styles.card}>
       <CardHeader
-        image={<img width={50} src={resolveAsset('profile.jpg')} alt="" />}
+        image={<img src={resolveAsset('avatar_elvia.svg')} alt="" />}
         header={
           <Body1>
             <b>Shubham Sharma</b> Posted
           </Body1>
         }
-        description={<Caption1>Loan Offers</Caption1>}
+        description={<Caption1>Loan application</Caption1>}
       />
 
       <CardPreview
         logo={
-          <img src={resolveAsset('docx.png')} alt="Microsoft Word document" />
+          <img src={resolveAsset('logo.png')} height={30} alt="Logo demyst" />
         }
       >
         <img
