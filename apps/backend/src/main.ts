@@ -12,6 +12,7 @@ import { MyobAccountingProvider } from './providers/accounting-providers/myob';
 import { SimulatedAccountingProvider } from './providers/accounting-providers';
 import { XeroAccountingProvider } from './providers/accounting-providers/xero';
 import path from 'path';
+import { createDecision } from './controllers/decision-engine';
 
 const accountingProviderRegistry: Map<AccountingProvider, IAccountingProvider> =
   new Map();
@@ -20,11 +21,14 @@ accountingProviderRegistry.set('simulated', new SimulatedAccountingProvider());
 accountingProviderRegistry.set('xero', new XeroAccountingProvider());
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/api', (req, res) => res.status(200).json({ status: 'Healthy' })); // Fake Health Check,
 
 app.get('/api/initiate-application', getApplicationToken);
 app.get('/api/balance-sheet', getBalanceSheet(accountingProviderRegistry));
+app.post('/api/decision', createDecision);
 
 app.use(/(?!\/api\/)/, express.static(path.join(__dirname, 'assets')));
 

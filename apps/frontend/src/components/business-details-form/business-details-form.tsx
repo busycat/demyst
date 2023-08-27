@@ -189,6 +189,7 @@ export const BusinessDetailsForm: FC<Props> = ({
         <Label className={styles.label}>Loan amount</Label>
         <Input
           type="number"
+          step={1}
           className={mergeClasses(
             styles.input,
             errors.amount ? styles.error : undefined

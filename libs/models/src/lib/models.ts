@@ -35,3 +35,13 @@ export interface LoanApplicationRequest {
   provider: AccountingProvider;
   amount: number;
 }
+
+export type DecisionRequest = LoanApplicationRequest & {
+  sheet: BalanceSheet;
+};
+
+export interface DecisionOutcome {
+  token: string;
+  outcome: string;
+  approvedAmount: number;
+}

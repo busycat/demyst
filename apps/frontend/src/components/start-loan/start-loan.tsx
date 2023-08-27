@@ -18,15 +18,19 @@ import Axios from 'axios-observable';
 import {
   BalanceSheet,
   BalanceSheetRequest,
+  DecisionOutcome,
+  DecisionRequest,
   LoanApplicationRequest,
   StartApplication,
 } from '@demyst/models';
 import { BalanceSheetComp } from '../balance-sheet/balance-sheet';
 
 export const StartLoan: FC = () => {
+  // TODO: Here the states could be better managed if we use a reducer
   const [token, setToken] = useState<StartApplication>();
   const [t2, setT2] = useState<LoanApplicationRequest>();
   const [balanceSheet, setBalanceSheet] = useState<BalanceSheet>();
+  const [outcome, setOutcome] = useState<DecisionOutcome>();
 
   useEffect(() => {
     Axios.get<StartApplication>('/api/initiate-application').subscribe({
@@ -39,6 +43,12 @@ export const StartLoan: FC = () => {
       params,
     }).subscribe({
       next: ({ data }) => setBalanceSheet(data),
+    });
+  }, []);
+
+  const getDecision = useCallback((data: DecisionRequest) => {
+    Axios.post<DecisionOutcome>('/api/decision', data).subscribe({
+      next: ({ data }) => setOutcome(data),
     });
   }, []);
 
@@ -66,14 +76,42 @@ export const StartLoan: FC = () => {
         </CardPreview>
       </Card>
       <Card>
-        <CardHeader header={<>Validate balance sheet</>} />
+        <CardHeader header={<>Review balance sheet</>} />
         <CardPreview>
           {balanceSheet && <BalanceSheetComp balanceSheet={balanceSheet} />}
         </CardPreview>
         <CardFooter>
-          <Button>Submit application</Button>
+          <Button
+            disabled={!t2 || !balanceSheet}
+            onClick={() => {
+              if (!balanceSheet || !t2) {
+                throw new Error('Balance sheet or loan request not found');
+              }
+              return getDecision({ ...t2, sheet: balanceSheet });
+            }}
+          >
+            Submit application
+          </Button>
         </CardFooter>
       </Card>
+      {outcome && (
+        <Card>
+          <CardHeader header={<>View Outcome</>} />
+          <CardPreview>
+            <Body1>Loan is approved for {outcome.approvedAmount}</Body1>
+          </CardPreview>
+          <CardFooter>
+            <Button
+              disabled={!outcome}
+              onClick={() => {
+                window.print();
+              }}
+            >
+              Print Application
+            </Button>
+          </CardFooter>
+        </Card>
+      )}
     </>
   ) : (
     <Spinner></Spinner>
