@@ -119,3 +119,22 @@ sheet = [
 ### What is the time-limit on exercise ?
 
 There is none, ensure you submit your best attempt and as soon as you possibly can.
+
+### How to run this Project
+
+#### Development Mode
+
+We can run this project using node. Steps are
+
+```shell
+$ yarn
+$ yarn start:all
+```
+
+#### Production Mode
+
+We can use docker to run the App. Enter below command interminal to create docker container and then open http://localhost:3333/ in your browser.
+
+```shell
+$ docker run -p 3333:3333 ghcr.io/busycat/demyst
+```

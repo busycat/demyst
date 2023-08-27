@@ -13,6 +13,8 @@ WORKDIR /usr/src/app
 RUN mkdir -p /usr/src/app/dist/backend
 COPY --from=build /usr/src/app/dist/apps/backend .
 COPY --from=build /usr/src/app/dist/apps/frontend assets
+COPY .env .
 RUN ls
 EXPOSE 3333
+
 CMD [ "node", "main.js" ]

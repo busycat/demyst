@@ -1,6 +1,7 @@
 # Self Evaluation
 
 - [ ] Make getBalanceSheet async. If integrating external Providers then We need to get data asynchronously.
+- [ ] Docker Image is too big.
 - [ ] Optimize UI, Currently its very basic, Adding Stepper will be good.
 - [ ] Mock decision engine such that it can be async. Pass the data that's requested in `README.md`.
 - [ ] Deploy the project.
